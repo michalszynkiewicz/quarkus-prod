@@ -25,15 +25,33 @@ var header = [{
 
 let data;
 
-function addVersion() {
-    // TODO
+function initVersionMenu() {
+    let versionList = document.getElementById('version-list');
+    let selectedVersion = getVersion();
+    fetch('/versions')
+        .then(response => response.json())
+        .then(content => {
+            content.forEach(
+                version => {
+                    let li = document.createElement('li');
+                    versionList.appendChild(li);
+                    addClasses(li, ["nav-item"]);
+
+                    let a = document.createElement('a');
+                    li.appendChild(a);
+                    a.href = `extensions.html?version=${version.id}`;
+                    a.text = version.id;
+                    if ((version.newest && selectedVersion === 'newest') || selectedVersion === version.id) {
+                        addClasses(a, ['nav-link', 'active']);
+                    } else {
+                        addClasses(a, ['nav-link']);
+                    }
+                }
+            )
+        })
 }
 
-function addClasses(element, classes) {
-    classes.forEach(
-        css => element.classList.add(css)
-    )
-}
+
 
 function createSelect(id, column) {
     let result = document.createElement('select');
@@ -169,12 +187,6 @@ function redrawTable() {
     createTable(contents, header, data);
 }
 
-function getVersion() {
-    let query = new URLSearchParams(window.location.search);
-    return query.get("version") || "newest";
-}
-
-
 function updateExtension(version, row) {
     return fetch(`/versions/${version}/extensions/${row.id}`, {
         body: JSON.stringify({
@@ -197,31 +209,17 @@ function refetch() {
         .then(redrawTable);
 }
 
-function initVersionMenu() {
-    let versionList = document.getElementById('version-list');
-    let selectedVersion = getVersion();
-    fetch('/versions')
-        .then(response => response.json())
-        .then(content => {
-            content.forEach(
-                version => {
-                    let li = document.createElement('li');
-                    versionList.appendChild(li);
-                    addClasses(li, ["nav-item"]);
-
-                    let a = document.createElement('a');
-                    li.appendChild(a);
-                    a.href = `extensions.html?version=${version.id}`;
-                    a.text = version.id;
-                    if ((version.newest && selectedVersion === 'newest') || selectedVersion === version.id) {
-                        addClasses(a, ['nav-link', 'active']);
-                    } else {
-                        addClasses(a, ['nav-link']);
-                    }
-                }
-            )
-        })
+function addClasses(element, classes) {
+    classes.forEach(
+        css => element.classList.add(css)
+    )
 }
+
+function getVersion() {
+    let query = new URLSearchParams(window.location.search);
+    return query.get("version") || "newest";
+}
+
 
 window.onload =
     function () {
