@@ -1,0 +1,38 @@
+h1 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-group-lg {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+nav.version-select {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+
+thead {
+    font-weight: bolder;
+}
+
+.contents > .content.row:hover {
+    background-color: rgba(210, 210, 230, 0.5);      /* whatever color you want */
+}
+
+.info-bar {
+    position: sticky;
+    top: 0;
+}
+
+a.active {
+    font-weight: bolder;
+    font-style: italic;
+    color: inherit;
+}
+
+.alert text {
+    padding: 1em;
+}

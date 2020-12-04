@@ -1,7 +1,0 @@
-div .header div {
-    font-weight: bolder;
-}
-
-.contents > .content.row:hover {
-    background-color: rgba(210, 210, 230, 0.5);      /* whatever color you want */
-}
