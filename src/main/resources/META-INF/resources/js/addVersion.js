@@ -5,7 +5,9 @@ function addVersion() {
         upstreamVersion: document.getElementById('upstreamVersion').value,
         newest: document.getElementById('newest').checked
     };
-
+    if (!body['baseVersion'].length>0){
+        body.baseVersion = "newest"
+    }
     fetch('/versions', {
         method: 'POST',
         headers: {
